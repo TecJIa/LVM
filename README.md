@@ -111,7 +111,6 @@ mkfs.xfs /dev/VolGroup00/LogVol00
 ```
 ![images2](./images/image_lvm_15.png)
 
-Создаем ФС
 ```bash
 #монтируем 
 mount /dev/VolGroup00/LogVol00 /mnt 
