@@ -26,6 +26,7 @@ lvmdiskscan
 
 ![images2](./images/image_lvm_3.png)
 
+---
 - Этап 3: Уменьшить том под / до 8G
 Подготовка временного тома для / раздела
 
@@ -135,6 +136,8 @@ cd /boot ; for i in `ls initramfs-*img`; do dracut -v $i `echo $i|sed "s/initram
 ```
 ![images2](./images/image_lvm_18.png)
 
+---
+- Этап 3: Выделить том под /var в зеркало
 
 На свободных дисках создаем зеркало:
 
@@ -191,9 +194,8 @@ pvremove /dev/sdb
 ```
 ![images2](./images/image_lvm_26.png)
 
-
-- Этап 4: Выделить том под /home
-
+---
+- Этап 5: Выделить том под /home
 
 Выделяем том под /home по тому же принципу что делали для /var:
 ```bash
@@ -214,6 +216,8 @@ echo "`blkid | grep Home | awk '{print $2}'` /home xfs defaults 0 0" >> /etc/fst
 ```
 ![images2](./images/image_lvm_28.png)
 
+---
+- Этап 5: Работа со снапшотами
 
 Генерируем файлы в /home/:
 ```bash
