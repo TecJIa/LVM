@@ -136,7 +136,7 @@ cd /boot ; for i in `ls initramfs-*img`; do dracut -v $i `echo $i|sed "s/initram
 ![images2](./images/image_lvm_18.png)
 
 ---
-- Этап 3: Выделить том под /var в зеркало
+- Этап 4: Выделить том под /var в зеркало
 
 На свободных дисках создаем зеркало:
 
@@ -216,7 +216,7 @@ echo "`blkid | grep Home | awk '{print $2}'` /home xfs defaults 0 0" >> /etc/fst
 ![images2](./images/image_lvm_28.png)
 
 ---
-- Этап 5: Работа со снапшотами
+- Этап 6: Работа со снапшотами
 
 Генерируем файлы в /home/:
 ```bash
