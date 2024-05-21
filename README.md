@@ -21,7 +21,9 @@ lsblk
 lvmdiskscan
 ```  
 ![images2](./images/image_lvm_1.png)
+
 ![images2](./images/image_lvm_2.png)
+
 ![images2](./images/image_lvm_3.png)
 
 - Этап 3: Уменьшить том под / до 8G
@@ -238,7 +240,8 @@ lvconvert --merge /dev/VolGroup00/home_snap
 *ПРИМЕЧАНИЕ
 ```bash
 mount /home
-# А вот тут возник косяк. Не хотел монтироваться /home#>>>mount: can't find /home in /etc/fstab
+# А вот тут возник косяк. Не хотел монтироваться /home
+#>>>mount: can't find /home in /etc/fstab
 # Проблема оказалась в ошибке в команде, когда мы 
 # Вносим изменения в fstab (упустил слеш)
 # Хотел попробовать примонтировать по UUID, увидел косяк, поправил руками
@@ -247,40 +250,3 @@ mount /home
 ls -al /home
 ```
 ![images2](./images/image_lvm_31.png)
-
-
-
-
-
-
-
-
-
-
-
-
-Ну, в моем случае подтянулся диск горячей замены)), сломаем еще немного, "выдернув" еще диск
-![images2](./images/image_raid_13.png)
-![images2](./images/image_raid_14.png)
-
-Удалим "сломанный" диск из рейда и вернем обратно, будто новый
-![images2](./images/image_raid_15.png)
-
-момент построения рейда я пропустил, слишком быстро было
-
-![images2](./images/image_raid_16.png)
-
-- Этап 5: Создадим GPT раздел и 5 партиций и смонтируем их на диск
-```bash
-#Создаем раздел GPT на RAID
-parted -s /dev/md0 mklabel gpt
-#Создаем партиции (5 комманд с шагом в 20%)
-parted /dev/md0 mkpart primary ext4 0% 20%
-# Создаем на этих партициях ФС
-for i in $(seq 1 5); do sudo mkfs.ext4 /dev/md0p$i; done 
-# Монтируем их по каталогам
-mkdir -p /raid/part{1,2,3,4,5}
-for i in $(seq 1 5); do mount /dev/md0p$i /raid/part$i; done 
-```
-![images2](./images/image_raid_17.png)
-![images2](./images/image_raid_18.png)
